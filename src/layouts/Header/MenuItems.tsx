@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { HomeOutlined, FileDoneOutlined, HighlightOutlined } from "@ant-design/icons";
 import type { MenuProps } from 'antd';
 
@@ -6,17 +7,17 @@ type MenuItem = Required<MenuProps>['items'][number];
 
 const menuItems: MenuItem[] = [
   {
-    label: 'Главная',
+    label: <Link to="/">Главная</Link>,
     key: 'main',
     icon: <HomeOutlined />,
   },
   {
-    label: 'Задачи',
+    label: <Link to="/tasks">Задачи</Link>,
     key: 'tasks',
     icon: <FileDoneOutlined />,
   },
   {
-    label: 'Дизайнеру',
+    label: <Link to="/designer">Дизайнеру</Link>,
     key: 'design',
     icon: <HighlightOutlined />,
   },
