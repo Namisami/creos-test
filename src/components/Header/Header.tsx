@@ -1,53 +1,15 @@
 import { useState } from 'react';
-import { HomeOutlined, FileDoneOutlined, HighlightOutlined, SunOutlined, MoonOutlined } from '@ant-design/icons';
+import { SunOutlined, MoonOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Dropdown, Menu, Flex, Switch } from "antd";
 
 import LanguageIcon from '../Icons/LanguageIcon';
+import getWeekOfMonth from '../../utils/getWeekOfMonth';
+import menuItems from './MenuItems';
+import languageItems from './LanguageItems';
 
 import './Header.css';
-import getWeekOfMonth from '../../utils/getWeekOfMonth';
 
-
-type MenuItem = Required<MenuProps>['items'][number];
-
-const items: MenuItem[] = [
-  {
-    label: 'Главная',
-    key: 'main',
-    icon: <HomeOutlined />,
-  },
-  {
-    label: 'Задачи',
-    key: 'tasks',
-    icon: <FileDoneOutlined />,
-  },
-  {
-    label: 'Дизайнеру',
-    key: 'design',
-    icon: <HighlightOutlined />,
-  },
-];
-
-const dropdownItems: MenuProps['items'] = [
-  {
-    key: '1',
-    label: "Русский"
-  },
-  {
-    key: '2',
-    label: "English"
-  },
-];
-
-const handleMenuClick: MenuProps['onClick'] = (e) => {
-  console.log('click', e);
-};
-
-const dropdownMenuProps = {
-  items: dropdownItems,
-  onClick: handleMenuClick,
-};
 
 const Header = () => {
   const [current, setCurrent] = useState('mail');
@@ -68,7 +30,7 @@ const Header = () => {
         onClick={onClick} 
         selectedKeys={[current]} 
         mode="horizontal" 
-        items={items} 
+        items={ menuItems } 
       />
       <Flex gap={ 12 }>
         <p className='header__week'>{ getWeekOfMonth() } неделя</p>
@@ -79,7 +41,7 @@ const Header = () => {
         />
         <Dropdown.Button
           className="header__dropdown-btn"
-          menu={ dropdownMenuProps }
+          menu={ languageItems }
           icon={ <LanguageIcon /> }
         />
       </Flex>
