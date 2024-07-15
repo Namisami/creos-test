@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 
-import BasicLayout from "../pages/layouts/BasicLayout";
+import BasicLayout from "../layouts/BasicLayout";
 import MainPage from "../pages/MainPage/MainPage";
 import TasksPage from "../pages/TasksPage/TasksPage";
 import DesignerPage from "../pages/DesignerPage/DesignerPage";

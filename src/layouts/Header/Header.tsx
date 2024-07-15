@@ -3,7 +3,7 @@ import { SunOutlined, MoonOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Dropdown, Menu, Flex, Switch } from "antd";
 
-import LanguageIcon from '../Icons/LanguageIcon';
+import LanguageIcon from '../../components/Icons/LanguageIcon';
 import getWeekOfMonth from '../../utils/getWeekOfMonth';
 import menuItems from './MenuItems';
 import languageItems from './LanguageItems';
