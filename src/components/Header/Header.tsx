@@ -28,6 +28,26 @@ const items: MenuItem[] = [
   },
 ];
 
+const dropdownItems: MenuProps['items'] = [
+  {
+    key: '1',
+    label: "Русский"
+  },
+  {
+    key: '2',
+    label: "English"
+  },
+];
+
+const handleMenuClick: MenuProps['onClick'] = (e) => {
+  console.log('click', e);
+};
+
+const dropdownMenuProps = {
+  items: dropdownItems,
+  onClick: handleMenuClick,
+};
+
 const Header = () => {
   const [current, setCurrent] = useState('mail');
 
@@ -48,9 +68,9 @@ const Header = () => {
         selectedKeys={[current]} 
         mode="horizontal" 
         items={items} />
-      <Dropdown.Button 
+      <Dropdown.Button
+        menu={ dropdownMenuProps }
         className="header__dropdown-btn"
-        disabled 
         icon={ <LanguageIcon /> }
       />
     </Flex>
