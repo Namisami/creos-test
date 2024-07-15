@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { HomeOutlined, FileDoneOutlined, HighlightOutlined } from '@ant-design/icons';
+import { HomeOutlined, FileDoneOutlined, HighlightOutlined, SunOutlined, MoonOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
-import { Dropdown, Menu, Flex } from "antd";
+import { Dropdown, Menu, Flex, Switch } from "antd";
 
 import LanguageIcon from '../Icons/LanguageIcon';
 
 import './Header.css';
+import getWeekOfMonth from '../../utils/getWeekOfMonth';
 
 
 type MenuItem = Required<MenuProps>['items'][number];
@@ -67,12 +68,21 @@ const Header = () => {
         onClick={onClick} 
         selectedKeys={[current]} 
         mode="horizontal" 
-        items={items} />
-      <Dropdown.Button
-        menu={ dropdownMenuProps }
-        className="header__dropdown-btn"
-        icon={ <LanguageIcon /> }
+        items={items} 
       />
+      <Flex gap={ 12 }>
+        <p className='header__week'>{ getWeekOfMonth() } неделя</p>
+        <Switch
+          className='header__theme-switch'
+          checkedChildren={<MoonOutlined />}
+          unCheckedChildren={<SunOutlined />}
+        />
+        <Dropdown.Button
+          className="header__dropdown-btn"
+          menu={ dropdownMenuProps }
+          icon={ <LanguageIcon /> }
+        />
+      </Flex>
     </Flex>
   );
 };

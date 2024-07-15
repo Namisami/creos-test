@@ -8,6 +8,11 @@
   border-bottom: 0;
 }
 
+.header__week {
+  
+  margin: auto;
+}
+
 .header__dropdown-btn {
   width: auto;
 }
@@ -19,5 +24,8 @@
 .header__dropdown-btn > .ant-btn-compact-last-item  {
   border-start-start-radius: 6px !important;
   border-end-start-radius: 6px !important;
+  margin: auto;
+}
+.header__theme-switch {
   margin: auto;
 }
