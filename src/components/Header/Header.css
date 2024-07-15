@@ -1,0 +1,23 @@
+.header {
+  padding: 5px 10px;
+  border-bottom: 1px solid rgba(213, 220, 227, 0.795);
+}
+
+.header__menu {
+  flex: 1;
+  border-bottom: 0;
+}
+
+.header__dropdown-btn {
+  width: auto;
+}
+
+.header__dropdown-btn > .ant-btn-compact-first-item  {
+  display: none;
+}
+
+.header__dropdown-btn > .ant-btn-compact-last-item  {
+  border-start-start-radius: 6px !important;
+  border-end-start-radius: 6px !important;
+  margin: auto;
+}
