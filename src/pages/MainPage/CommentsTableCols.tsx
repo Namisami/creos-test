@@ -1,6 +1,6 @@
 import { Avatar, TableProps } from 'antd';
 
-import { Comment } from '../../types/Comments';
+import { Comment } from '../../types/Comment';
 import getTimeHasGone from '../../utils/getTimeHasGone';
 
 

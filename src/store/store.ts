@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import commentsReducer from './slices/commentsSlice'
+import designersReducer from './slices/designersSlice'
 
 export const store = configureStore({
   reducer: {
     comments: commentsReducer,
+    designers: designersReducer,
   },
 })
 

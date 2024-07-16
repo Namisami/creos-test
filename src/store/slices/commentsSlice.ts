@@ -2,7 +2,7 @@ import axios from 'axios'
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '../store'
-import { Comment } from '../../types/Comments'
+import { Comment } from '../../types/Comment'
 
 
 export interface CommentsState {
@@ -41,14 +41,12 @@ export const commentsSlice = createSlice({
         state.error = null
       })
       .addCase(fetchComments.fulfilled, (state, action: PayloadAction<Comment[]>) => {
-        console.log(action)
         state.comments = action.payload
         state.loadingStatus = "loaded"
       })
       .addCase(fetchComments.rejected, (state, action) => {
         state.loadingStatus = "failed";
         state.error = action.error.message;
-        console.log(action)
       })
   }
 })
@@ -58,8 +56,5 @@ export const selectCommentsLoadingStatus = (state: RootState) => {
   return state.comments.loadingStatus === "loaded" ? false : true 
 }
 export const selectCommentsError = (state: RootState) => state.comments.error;
-
-// export const { } = commentSlice.actions
-// export const { increment, decrement, incrementByAmount } = commentSlice.actions
 
 export default commentsSlice.reducer
