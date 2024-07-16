@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import type { PayloadAction, SerializedError } from '@reduxjs/toolkit'
+import type { PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '../store'
 import { Comment } from '../../types/Comments'
 
@@ -8,7 +8,7 @@ import { Comment } from '../../types/Comments'
 export interface CommentsState {
   comments: Comment[]
   loadingStatus: "loading" | "loaded" | "failed"
-  error: SerializedError | null 
+  error: string | null | undefined
 }
 
 const initialState: CommentsState = {
@@ -24,7 +24,7 @@ export const fetchComments = createAsyncThunk(
       const res = await axios.get("https://sandbox.creos.me/api/v1/comment/")
       return res.data;
     } catch (err) {
-      console.error(err)
+      return Promise.reject(err)
     }
   }
 )
@@ -33,19 +33,6 @@ export const commentsSlice = createSlice({
   name: 'comment',
   initialState,
   reducers: {
-    // increment: (state) => {
-    //   // Redux Toolkit allows us to write "mutating" logic in reducers. It
-    //   // doesn't actually mutate the state because it uses the Immer library,
-    //   // which detects changes to a "draft state" and produces a brand new
-    //   // immutable state based off those changes
-    //   state.value += 1
-    // },
-    // decrement: (state) => {
-    //   state.value -= 1
-    // },
-    // incrementByAmount: (state, action: PayloadAction<number>) => {
-    //   state.value += action.payload
-    // },
   },
   extraReducers: (builder) => {
     builder
@@ -54,12 +41,14 @@ export const commentsSlice = createSlice({
         state.error = null
       })
       .addCase(fetchComments.fulfilled, (state, action: PayloadAction<Comment[]>) => {
+        console.log(action)
         state.comments = action.payload
         state.loadingStatus = "loaded"
       })
       .addCase(fetchComments.rejected, (state, action) => {
-        state.loadingStatus = "failed"
-        state.error = action.error
+        state.loadingStatus = "failed";
+        state.error = action.error.message;
+        console.log(action)
       })
   }
 })
@@ -68,6 +57,7 @@ export const selectComments = (state: RootState) => state.comments.comments
 export const selectCommentsLoadingStatus = (state: RootState) => {
   return state.comments.loadingStatus === "loaded" ? false : true 
 }
+export const selectCommentsError = (state: RootState) => state.comments.error;
 
 // export const { } = commentSlice.actions
 // export const { increment, decrement, incrementByAmount } = commentSlice.actions
