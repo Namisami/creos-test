@@ -29,11 +29,12 @@ const MainPage = () => {
 
   return (
     <>
-      <Typography.Title>Последние комментарии</Typography.Title>
       <Table
         rowKey="id"
+        pagination={ false }
+        title={ () => <Typography.Title>Последние комментарии</Typography.Title> }
         loading={ commentsLoadingStatus }
-        dataSource={ comments }
+        dataSource={ comments.slice(0, 10) }
         columns={ commentsTableCols }
       />
     </>
