@@ -1,8 +1,8 @@
 import { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { List } from 'antd';
+import { Table, Typography } from 'antd';
 
-import Comment from '../../components/Comment/Comment';
+import commentsTableCols from './CommentsTableCols';
 import { fetchComments, selectComments, selectCommentsLoadingStatus } from '../../store/slices/commentsSlice';
 import { AppDispatch } from '../../store/store';
 
@@ -29,27 +29,13 @@ const MainPage = () => {
 
   return (
     <>
-      <List
-        header="Последние комментарии"
+      <Typography.Title>Последние комментарии</Typography.Title>
+      <Table
+        rowKey="id"
         loading={ commentsLoadingStatus }
         dataSource={ comments }
-        renderItem={ (comment) => (
-          <List.Item>
-            <Comment content={ comment } />
-          </List.Item>
-        )}
-      >
-
-      </List>
-      {/* <Card loading={ commentsLoadingStatus } title="Последние комментарии">
-        { comments.map((comment) => {
-          return (
-            <p>{ comment.issue }</p>
-          )
-        })}
-      </Card> */}
-      {/* <Card title="Топ дизайнеров">
-      </Card> */}
+        columns={ commentsTableCols }
+      />
     </>
   )
 };
