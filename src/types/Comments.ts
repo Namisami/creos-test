@@ -5,6 +5,6 @@ export interface Comment {
   id: number
   issue: string
   designer: Designer
-  date_created: Date
+  date_created: string
   message: string
 }

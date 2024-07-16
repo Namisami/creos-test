@@ -65,6 +65,9 @@ export const commentsSlice = createSlice({
 })
 
 export const selectComments = (state: RootState) => state.comments.comments
+export const selectCommentsLoadingStatus = (state: RootState) => {
+  return state.comments.loadingStatus === "loaded" ? false : true 
+}
 
 // export const { } = commentSlice.actions
 // export const { increment, decrement, incrementByAmount } = commentSlice.actions
