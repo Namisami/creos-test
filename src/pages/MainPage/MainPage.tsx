@@ -1,6 +1,6 @@
 import { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Table, Typography } from 'antd';
+import { Alert, Table, Typography } from 'antd';
 
 import commentsTableCols from './CommentsTableCols';
 import { fetchComments, selectComments, selectCommentsError, selectCommentsLoadingStatus } from '../../store/slices/commentsSlice';
@@ -24,15 +24,17 @@ const MainPage = () => {
 
   return (
     <>
-      { commentsError }
-      <Table
-        rowKey="id"
-        pagination={ false }
-        title={ () => <Typography.Title>Последние комментарии</Typography.Title> }
-        loading={ commentsLoadingStatus }
-        dataSource={ comments?.slice(0, 10) }
-        columns={ commentsTableCols }
-      />
+      <Typography.Title>Последние комментарии</Typography.Title>
+      { commentsError 
+        ? <Alert message="Произошла ошибка при загрузке комментариев. Попробуйте перезагрузить страницу" type='error' />
+        : <Table
+          rowKey="id"
+          pagination={ false }
+          loading={ commentsLoadingStatus }
+          dataSource={ comments?.slice(0, 10) }
+          columns={ commentsTableCols }
+        />
+      }
     </>
   )
 };
