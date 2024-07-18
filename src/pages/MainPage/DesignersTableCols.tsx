@@ -1,6 +1,8 @@
 import { Avatar, TableProps } from 'antd';
 
 import { Designer } from '../../types/Designer';
+import { Issue } from '../../types/Issue';
+import getMedianTimeSpentOnTasks from '../../utils/getMedianTimeSpentOnTasks';
 
 
 const designersTableCols: TableProps<Designer>['columns'] = [
@@ -16,25 +18,18 @@ const designersTableCols: TableProps<Designer>['columns'] = [
     dataIndex: ['username'],
     key: 'username',
   },
-  // {
-  //   title: 'Дата',
-  //   dataIndex: 'date_created',
-  //   key: 'date_created',
-  //   render: (dateString) => getTimeHasGone(dateString),
-  // },
-  // {
-  //   title: 'Задача',
-  //   dataIndex: 'issue',
-  //   key: 'issue',
-  // },
-  // {
-  //   title: 'Сообщение',
-  //   dataIndex: 'message',
-  //   key: 'message',
-  //   width: 600,
-  //   ellipsis: true,
-  //   render: (message) => <span className='comment__message'>{ message }</span>
-  // },
+  {
+    title: 'Медианное время',
+    dataIndex: 'issues',
+    key: 'issues_time_spent',
+    render: (issues: Issue[]) => `${getMedianTimeSpentOnTasks(issues)} ч.`,
+  },
+  {
+    title: 'Выполнено задач',
+    dataIndex: 'issues',
+    key: 'issues_completed',
+    render: (issues: Issue[]) => issues?.length ? issues.length : 0
+  },
 ]
 
 export default designersTableCols;

@@ -4,8 +4,8 @@ import { Alert, Table, Typography } from 'antd';
 
 import commentsTableCols from './CommentsTableCols';
 import { fetchComments, selectComments, selectCommentsError, selectCommentsLoadingStatus } from '../../store/slices/commentsSlice';
-import { fetchDesigners, selectDesigners, selectDesignersError, selectDesignersLoadingStatus } from '../../store/slices/designersSlice';
-import { AppDispatch } from '../../store/store';
+import { fetchDesigners, selectDesignersError, selectDesignersLoadingStatus, selectTopDesigners } from '../../store/slices/designersSlice';
+import { AppDispatch, RootState } from '../../store/store';
 
 import './MainPage.css';
 import designersTableCols from './DesignersTableCols';
@@ -17,7 +17,8 @@ const MainPage = () => {
   const comments = useSelector(selectComments);
   const commentsLoadingStatus = useSelector(selectCommentsLoadingStatus);
   const commentsError = useSelector(selectCommentsError);
-  const designers = useSelector(selectDesigners);
+
+  const designers = useSelector((state: RootState) => selectTopDesigners(state, 10));
   const designersLoadingStatus = useSelector(selectDesignersLoadingStatus);
   const designersError = useSelector(selectDesignersError);
 
@@ -26,7 +27,7 @@ const MainPage = () => {
 
   useEffect(() => {
     getComments();
-    getDesigners();
+    getDesigners(); 
   }, [])
 
   return (
@@ -52,7 +53,7 @@ const MainPage = () => {
             rowKey="email"
             pagination={ false }
             loading={ designersLoadingStatus }
-            dataSource={ designers?.slice(0, 10) }
+            dataSource={ designers }
             columns={ designersTableCols }
           />
         }
