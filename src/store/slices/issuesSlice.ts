@@ -21,7 +21,7 @@ export const fetchIssues = createAsyncThunk(
   "issues/fetchIssues",
   async () => {
     try {
-      const res = await axios.get("https://sandbox.creos.me/api/v1/issue/")
+      const res = await axios.get("https://sandbox.creos.me/api/v1/issue/?status=Done")
       return res.data;
     } catch (err) {
       return Promise.reject(err)
@@ -52,6 +52,7 @@ export const issuesSlice = createSlice({
 })
 
 export const selectIssues = (state: RootState) => state.issues.issues
+export const selectDoneIssues = (state: RootState) => state.issues.issues.filter((issue) => issue.status === "Done")
 export const selectIssuesLoadingStatus = (state: RootState) => {
   return state.issues.loadingStatus === "loaded" ? false : true 
 }

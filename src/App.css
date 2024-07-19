@@ -1,3 +1,10 @@
+html, body, #root, .container {
+  height: 100%;
+}
+#root {
+  display: flex;
+  flex-direction: column;
+}
 .container{
   position:relative;
   margin-left:auto;
