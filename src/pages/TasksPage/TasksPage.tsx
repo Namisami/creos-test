@@ -1,151 +1,45 @@
-import { useCallback, useEffect, useMemo } from 'react';
-import { AxisOptions, Chart } from 'react-charts';
-import './TasksPage.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch } from '../../store/store';
-import { fetchIssues, selectDoneIssues, selectIssuesError, selectIssuesLoadingStatus } from '../../store/slices/issuesSlice';
-import { Alert, Typography } from 'antd';
+import { useCallback, useEffect, useState } from 'react';
+import { Alert, InputNumber, Typography } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
+import { BarChart } from '@mui/x-charts';
 
-type TasksDone = {
-  week: number,
-  value: number,
-  // outcome: number,
-  // profit: number,
-}
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../store/store';
+import { fetchIssues, selectIOPForNWeeks, selectIssuesError, selectIssuesLoadingStatus } from '../../store/slices/issuesSlice';
 
-type Series = {
-  label: string,
-  data: TasksDone[]
-}
-
-const data: Series[] = [
-  {
-    label: 'Ушло',
-    data: [
-      {
-        week: 1,
-        value: 30,
-      },
-    ]
-  },
-  {
-    label: 'Пришло',
-    data: [
-      {
-        week: 1,
-        value: 10,
-      },
-    ]
-  },
-  {
-    label: 'Прибыль',
-    data: [
-      {
-        week: 1,
-        value: 20,
-      },
-    ]
-  },
-  {
-    label: 'Ушло',
-    data: [
-      {
-        week: 2,
-        value: 70,
-      }
-      // ...
-    ]
-  },
-  {
-    label: 'Пришло',
-    data: [
-      {
-        week: 2,
-        value: 40,
-      }
-      // ...
-    ]
-  },
-  {
-    label: 'Прибыль',
-    data: [
-      {
-        week: 2,
-        value: 30,
-      }
-      // ...
-    ]
-  },
-  {
-    label: 'Ушло',
-    data: [
-      {
-        week: 3,
-        value: 70,
-      }
-      // ...
-    ]
-  },
-  {
-    label: 'Пришло',
-    data: [
-      {
-        week: 3,
-        value: 40,
-      }
-      // ...
-    ]
-  },
-  {
-    label: 'Прибыль',
-    data: [
-      {
-        week: 3,
-        value: 30,
-      }
-      // ...
-    ]
-  }
-]
+import './TasksPage.css';
+import { DatasetElementType } from '@mui/x-charts/internals';
 
 
 const TasksPage = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const [showWeeks, setShowWeeks] = useState<number | null>(8);
 
-  const issues = useSelector(selectDoneIssues);
+  const dispatch = useDispatch<AppDispatch>();
+  
+  const dataset = useSelector((state: RootState) => selectIOPForNWeeks(state, showWeeks ? showWeeks : 0));
   const issuesLoadingStatus = useSelector(selectIssuesLoadingStatus);
   const issuesError = useSelector(selectIssuesError);
-
+  
   const getIssues = useCallback(() => dispatch(fetchIssues()), [])
+
+  const onShowWeeksChange = (value: number | null) => {
+    setShowWeeks(value);
+  }
   
   useEffect(() => {
     getIssues();
   }, [])
-  useEffect(() => {
-    console.log(issues);
-  }, [issues])
-
-  const primaryAxis = useMemo(
-    (): AxisOptions<TasksDone> => ({
-      getValue: datum => datum.week,
-    }),
-    []
-  )
-
-  const secondaryAxes = useMemo(
-    (): AxisOptions<TasksDone>[] => [
-      {
-        getValue: datum => datum.value,
-        elementType: "bar"
-      },
-    ],
-    []
-  )
 
   return (
     <div className='tasks'>
-      <Typography.Title>Последние задачи</Typography.Title>
+      <div className="tasks__header">
+        <Typography.Title>Последние задачи</Typography.Title>
+        <div className="tasks__weeks">
+          <Typography.Text>Показывать последние</Typography.Text>
+          <InputNumber min={ 1 } value={ showWeeks } onChange={ onShowWeeksChange } />
+          <Typography.Text>недель</Typography.Text>
+        </div>
+      </div>
         { issuesLoadingStatus
           ? <div className="tasks__loading">
               <LoadingOutlined />
@@ -153,12 +47,16 @@ const TasksPage = () => {
           : issuesError 
             ? <Alert message="Произошла ошибка при загрузке задач. Попробуйте перезагрузить страницу" type='error' />
             : <div className="tasks__chart">
-                <Chart
-                  options={{
-                    data,
-                    primaryAxis,
-                    secondaryAxes,
-                  }}
+                <BarChart
+                  dataset={ dataset as unknown as DatasetElementType<string | number | Date | null | undefined>[] }
+                  xAxis={[{ scaleType: 'band', dataKey: "week" }]}
+                  series={[
+                    { dataKey: 'income', label: "Приход"},
+                    { dataKey: 'outcome', label: "Уход"},
+                    { dataKey: 'profit', label: "Прибыль"},
+                  ]}
+                  // width={500}
+                  // height={300}
                 />
               </div>
         }
