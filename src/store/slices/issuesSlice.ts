@@ -31,7 +31,7 @@ export const fetchIssues = createAsyncThunk(
   "issues/fetchIssues",
   async () => {
     try {
-      const res = await axios.get("https://sandbox.creos.me/api/v1/issue/?status=Done")
+      const res = await axios.get("https://sandbox.creos.me/api/v1/issue/")
       return res.data;
     } catch (err) {
       return Promise.reject(err)
@@ -108,6 +108,28 @@ export const selectIOPForNWeeks = (state: RootState, n: number) => {
     })
   }
   return lastIOP;
+}
+export const selectIssuesDistribution = (state: RootState) => {
+  const issuesDistributionObj = {
+    "Завершено": 0,
+    "Новые": 0,
+    "В процессе": 0
+  }
+  state.issues.issues.forEach((issue) => {
+    console.log(issue.status)
+    if (issue.status === "Done") issuesDistributionObj["Завершено"] += 1
+    if (issue.status === "New") issuesDistributionObj["Новые"] += 1
+    if (issue.status === "In Progress") issuesDistributionObj["В процессе"] += 1
+  })
+  const issuesDistribution: {
+    id: number
+    value: number
+    label: string
+  }[] = [];
+  issuesDistribution.push({ id: 0, value: issuesDistributionObj["Завершено"], label: "Завершено"})
+  issuesDistribution.push({ id: 1, value: issuesDistributionObj["Новые"], label: "Новые"})
+  issuesDistribution.push({ id: 2, value: issuesDistributionObj["В процессе"], label: "В процессе"})
+  return issuesDistribution;
 }
 export const selectIssuesLoadingStatus = (state: RootState) => {
   return state.issues.loadingStatus === "loaded" ? false : true 

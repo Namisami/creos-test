@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Alert, InputNumber, Typography } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
-import { BarChart } from '@mui/x-charts';
+import { BarChart, PieChart } from '@mui/x-charts';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store/store';
-import { fetchIssues, selectIOPForNWeeks, selectIssuesError, selectIssuesLoadingStatus } from '../../store/slices/issuesSlice';
+import { fetchIssues, selectIOPForNWeeks, selectIssuesDistribution, selectIssuesError, selectIssuesLoadingStatus } from '../../store/slices/issuesSlice';
 
 import './TasksPage.css';
 import { DatasetElementType } from '@mui/x-charts/internals';
@@ -17,6 +17,7 @@ const TasksPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   
   const dataset = useSelector((state: RootState) => selectIOPForNWeeks(state, showWeeks ? showWeeks : 0));
+  const issuesDistributionDataset = useSelector(selectIssuesDistribution);
   const issuesLoadingStatus = useSelector(selectIssuesLoadingStatus);
   const issuesError = useSelector(selectIssuesError);
   
@@ -46,19 +47,31 @@ const TasksPage = () => {
             </div>
           : issuesError 
             ? <Alert message="Произошла ошибка при загрузке задач. Попробуйте перезагрузить страницу" type='error' />
-            : <div className="tasks__chart">
-                <BarChart
-                  dataset={ dataset as unknown as DatasetElementType<string | number | Date | null | undefined>[] }
-                  xAxis={[{ scaleType: 'band', dataKey: "week" }]}
-                  series={[
-                    { dataKey: 'income', label: "Приход"},
-                    { dataKey: 'outcome', label: "Уход"},
-                    { dataKey: 'profit', label: "Прибыль"},
-                  ]}
-                  // width={500}
-                  // height={300}
-                />
-              </div>
+            : <>
+                <div className="tasks__chart">
+                  <BarChart
+                    dataset={ dataset as unknown as DatasetElementType<string | number | Date | null | undefined>[] }
+                    xAxis={[{ scaleType: 'band', dataKey: "week" }]}
+                    series={[
+                      { dataKey: 'income', label: "Приход"},
+                      { dataKey: 'outcome', label: "Уход"},
+                      { dataKey: 'profit', label: "Прибыль"},
+                    ]}
+                    height={ 500 }
+                  />
+                </div>
+                <Typography.Title>Статусы всех задач</Typography.Title>
+                <div className="tasks__chart">
+                  <PieChart
+                    series={[
+                      {
+                        data: issuesDistributionDataset,
+                      },
+                    ]}
+                    height={ 400 }
+                  />
+                </div>
+              </>
         }
     </div>
   )
