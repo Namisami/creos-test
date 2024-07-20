@@ -16,11 +16,13 @@ const fullDesignersTableCols: TableProps<Designer>['columns'] = [
     title: 'Пользователь',
     dataIndex: ['username'],
     key: 'username',
+    sorter: (a, b) => a.username.localeCompare(b.username)
   },
   {
     title: 'Почта',
     dataIndex: ['email'],
     key: 'email',
+    sorter: (a, b) => a.email.localeCompare(b.email)
   },
   {
     title: 'Выполнено задач',
