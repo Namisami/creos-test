@@ -63,7 +63,7 @@ export const designersSlice = createSlice({
   }
 })
 
-export const selectDesigners = (state: RootState) => state.designers.designers
+export const selectDesigners = (state: RootState) => state.designers.designers;
 export const selectTopDesigners = (state: RootState, count: number) => {
   const topDesigners = [...state.designers.designers];
   topDesigners.sort((a, b) =>{

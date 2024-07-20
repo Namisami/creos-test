@@ -28,7 +28,7 @@ const designersTableCols: TableProps<Designer>['columns'] = [
     title: 'Выполнено задач',
     dataIndex: 'issues',
     key: 'issues_completed',
-    render: (issues: Issue[]) => issues?.length ? issues.length : 0
+    render: (issues: Issue[]) => issues?.filter((issue) => issue.status === "Done").length ? issues.length : 0
   },
 ]
 
