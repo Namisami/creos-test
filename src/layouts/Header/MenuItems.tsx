@@ -18,7 +18,7 @@ const menuItems: MenuItem[] = [
   },
   {
     label: <Link to="/designer">Дизайнеру</Link>,
-    key: 'design',
+    key: 'designer',
     icon: <HighlightOutlined />,
   },
 ];

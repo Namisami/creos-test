@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SunOutlined, MoonOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Dropdown, Menu, Flex, Switch } from "antd";
+import { useLocation } from 'react-router-dom';
 
 import LanguageIcon from '../../components/Icons/LanguageIcon';
 import getWeekOfMonth from '../../utils/getWeekOfMonth';
@@ -12,10 +13,15 @@ import './Header.css';
 
 
 const Header = () => {
+  const location = useLocation();
   const [current, setCurrent] = useState('mail');
 
+  useEffect(() => {
+    if (location.pathname === "/") return setCurrent("main");
+    return setCurrent(location.pathname.slice(1));
+  }, [location]);
+
   const onClick: MenuProps['onClick'] = (e) => {
-    console.log('click ', e);
     setCurrent(e.key);
   };
 

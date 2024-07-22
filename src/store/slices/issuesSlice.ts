@@ -116,7 +116,6 @@ export const selectIssuesDistribution = (state: RootState) => {
     "В процессе": 0
   }
   state.issues.issues.forEach((issue) => {
-    console.log(issue.status)
     if (issue.status === "Done") issuesDistributionObj["Завершено"] += 1
     if (issue.status === "New") issuesDistributionObj["Новые"] += 1
     if (issue.status === "In Progress") issuesDistributionObj["В процессе"] += 1

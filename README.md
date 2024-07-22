@@ -1,30 +1,18 @@
-# React + TypeScript + Vite
+# Удалось выполнить:
+## Главная страница
+- [x] Отобразить последние 10 комментариев. Вывести: аватар дизайнера, имя пользователя, относительное время(минут, часов, дней назад), задача, сообщение
+- [x] Отобразить топ 10 дизайнеров. Рассчитать: медиана затраченного *времени на выполнение задачи, количество выполненных задач. Отсортировать по меньшему времени, максимальное количество закрытых задач. Вывести: аватар дизайнера, имя пользователя, время, количество.
+## Страница задач
+- [x] Построить график закрытых за месяц задач с распределением по номерам рабочей недели. График состоит из 3 частей: прибыль, расходы и разница между прибылью и расходом. По умолчанию выводить 8 последних рабочих недель(предусмотреть выбор количества отображаемых недель).
+- [x] Круговая диаграмма с процентным соотношением статусов всех задач.
+## Страница дизайнера
+- [x] Отобразить таблицу дизайнеров. Вывести: аватар дизайнера, имя дизайнера, почта, количество задач закрытых и в процессе. Сортировка по имени дизайнера, почте.
+- [x] Пагинация.
+- [ ] Фильтр по статусам, проектам. (поскольку в таблице уже предусмотрены статусы).
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+# Библиотеки для UI и визуализации графиков
+- "@ant-design/icons": "^5.3.7",
+- "@emotion/react": "^11.12.0",
+- "@emotion/styled": "^11.12.0",
+- "@mui/material": "^5.16.4",
+- "@mui/x-charts": "^7.11.0",
