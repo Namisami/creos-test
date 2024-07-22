@@ -27,6 +27,8 @@ const DesignerPage = () => {
           ? <Alert message="Произошла ошибка при загрузке дизайнеров. Попробуйте перезагрузить страницу" type='error' />
           : <Table
               rowKey="email"
+              virtual
+              scroll={{ x: 1340, y: 800 }}
               loading={ designersLoadingStatus }
               dataSource={ designers }
               columns={ fullDesignersTableCols }

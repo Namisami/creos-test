@@ -63,6 +63,19 @@ const TasksPage = () => {
                 <Typography.Title>Статусы всех задач</Typography.Title>
                 <div className="tasks__chart">
                   <PieChart
+                    slotProps={{
+                      legend: {
+                        direction: "row",
+                        position: {
+                          vertical: "top",
+                          horizontal: "middle"
+                        }
+                      }
+                    }}
+                    margin={{
+                      top: 50,
+                      left: 80
+                    }}
                     series={[
                       {
                         data: issuesDistributionDataset,

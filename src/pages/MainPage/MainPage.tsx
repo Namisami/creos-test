@@ -37,6 +37,8 @@ const MainPage = () => {
         { commentsError 
           ? <Alert message="Произошла ошибка при загрузке комментариев. Попробуйте перезагрузить страницу" type='error' />
           : <Table
+            virtual
+            scroll={{ x: 1340, y: 800 }}
             rowKey="id"
             pagination={ false }
             loading={ commentsLoadingStatus }
@@ -50,6 +52,8 @@ const MainPage = () => {
         { designersError 
           ? <Alert message="Произошла ошибка при загрузке топа дизайнеров. Попробуйте перезагрузить страницу" type='error' />
           : <Table
+            virtual
+            scroll={{ x: 1340, y: 800 }}
             rowKey="email"
             pagination={ false }
             loading={ designersLoadingStatus }
