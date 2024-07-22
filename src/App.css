@@ -1,6 +1,6 @@
 html, body, #root, .container {
   height: 100%;
-  width: 100%;
+  max-width: 100%;
 }
 #root {
   display: flex;
@@ -8,15 +8,13 @@ html, body, #root, .container {
 }
 .container{
   position:relative;
-  margin-left:auto;
-  margin-right:auto;
   padding-right:15px;
   padding-left:15px
 }
 @media (min-width: 476px){
   .container{
-    padding-right:15px;
-    padding-left:15px
+    margin-left:auto;
+    margin-right:auto;
   }
 }
 @media (min-width: 768px){
@@ -38,8 +36,8 @@ html, body, #root, .container {
   }
 }
 @media (min-width: 476px){
-  .container{
-    width:100%
+  .container {
+    width: 420px;
   }
 }
 @media (min-width: 768px){
