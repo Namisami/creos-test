@@ -38,7 +38,7 @@ const Header = () => {
         mode="horizontal" 
         items={ menuItems } 
       />
-      <Flex gap={ 12 }>
+      <Flex className='header__options'>
         <p className='header__week'>{ getWeekOfMonth() } неделя</p>
         <Switch
           className='header__theme-switch'

@@ -1,4 +1,6 @@
 .header {
+  display: flex;
+  justify-content: space-between;
   padding: 5px 10px;
   border-bottom: 1px solid rgba(213, 220, 227, 0.795);
 }
@@ -9,7 +11,6 @@
 }
 
 .header__week {
-  
   margin: auto;
 }
 
@@ -28,4 +29,22 @@
 }
 .header__theme-switch {
   margin: auto;
+}
+.header__options {
+  gap: 12px;
+}
+@media screen and (max-width: 517px) {
+  .header {
+    flex-direction: column;
+  }
+  .header__options {
+    margin: auto;
+    margin-top: 1em;
+  }
+  .header__week {
+    margin: 0;
+  }
+  .header__theme-switch {
+    margin: 0;
+  }
 }
